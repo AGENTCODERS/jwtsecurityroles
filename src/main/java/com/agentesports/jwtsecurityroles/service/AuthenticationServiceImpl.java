@@ -1,6 +1,7 @@
 package com.agentesports.jwtsecurityroles.service;
 
 import com.agentesports.jwtsecurityroles.dto.JwtAuthenticationResponse;
+import com.agentesports.jwtsecurityroles.dto.RefeshTokenRequest;
 import com.agentesports.jwtsecurityroles.dto.SignUpRequest;
 import com.agentesports.jwtsecurityroles.dto.SigninRequest;
 import com.agentesports.jwtsecurityroles.entities.Role;
@@ -51,4 +52,18 @@ public class AuthenticationServiceImpl implements AuthenticationService{
         return jwtAuthenticationResponse;
 
     }
+
+    public JwtAuthenticationResponse refreshToken(RefeshTokenRequest refeshTokenRequest){
+        String userEmail=jwtService.extractUserName(refeshTokenRequest.getToken());
+        User user=userRepository.findByEmail(userEmail).orElseThrow();
+        if(jwtService.isTokenValid(refeshTokenRequest.getToken(),user)){
+            var jwt=jwtService.generateToken(user);
+            JwtAuthenticationResponse jwtAuthenticationResponse=new JwtAuthenticationResponse();
+            jwtAuthenticationResponse.setToken(jwt);
+            jwtAuthenticationResponse.setRefreshToken(refeshTokenRequest.getToken());
+            return jwtAuthenticationResponse;
+        }
+        return null;
+    }
+
 }

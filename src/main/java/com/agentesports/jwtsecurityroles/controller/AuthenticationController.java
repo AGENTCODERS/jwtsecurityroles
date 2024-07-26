@@ -2,6 +2,7 @@ package com.agentesports.jwtsecurityroles.controller;
 
 
 import com.agentesports.jwtsecurityroles.dto.JwtAuthenticationResponse;
+import com.agentesports.jwtsecurityroles.dto.RefeshTokenRequest;
 import com.agentesports.jwtsecurityroles.dto.SignUpRequest;
 import com.agentesports.jwtsecurityroles.dto.SigninRequest;
 import com.agentesports.jwtsecurityroles.entities.User;
@@ -28,6 +29,11 @@ public class AuthenticationController {
     @PostMapping("/signin")
     public ResponseEntity<JwtAuthenticationResponse>signin(@RequestBody SigninRequest signinRequest){
         return ResponseEntity.ok(authenticationService.signin(signinRequest));
+    }
+
+    @PostMapping("/refresh")
+    public ResponseEntity<JwtAuthenticationResponse>refresh(@RequestBody RefeshTokenRequest refeshTokenRequest){
+        return ResponseEntity.ok(authenticationService.refreshToken(refeshTokenRequest));
     }
 
 
