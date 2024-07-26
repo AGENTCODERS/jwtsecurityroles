@@ -1,7 +1,9 @@
 package com.agentesports.jwtsecurityroles.controller;
 
 
+import com.agentesports.jwtsecurityroles.dto.JwtAuthenticationResponse;
 import com.agentesports.jwtsecurityroles.dto.SignUpRequest;
+import com.agentesports.jwtsecurityroles.dto.SigninRequest;
 import com.agentesports.jwtsecurityroles.entities.User;
 import com.agentesports.jwtsecurityroles.service.AuthenticationService;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +23,11 @@ public class AuthenticationController {
     @PostMapping("/signup")
     public ResponseEntity<User> signup(@RequestBody SignUpRequest signUpRequest){
         return ResponseEntity.ok(authenticationService.signup(signUpRequest));
+    }
+
+    @PostMapping("/signin")
+    public ResponseEntity<JwtAuthenticationResponse>signin(@RequestBody SigninRequest signinRequest){
+        return ResponseEntity.ok(authenticationService.signin(signinRequest));
     }
 
 
