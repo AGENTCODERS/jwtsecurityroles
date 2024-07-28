@@ -15,8 +15,6 @@ public class JwtsecurityrolesApplication implements CommandLineRunner {
 	@Autowired
 	public UserRepository userRepository;
 
-
-
 	public static void main(String[] args) {
 		SpringApplication.run(JwtsecurityrolesApplication.class, args);
 	}
